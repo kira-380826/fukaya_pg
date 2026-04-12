@@ -21,7 +21,7 @@ export default function HomePage() {
       <section className="py-16 bg-purple-50">
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-3xl font-bold text-purple-900 mb-4">WELCOME TO TEAM PURPLE</h3>
-          <p className="text-gray-600">私たちは東京を拠点に活動するサッカーチームです。</p>
+          <p className="text-gray-600">私たちは深谷PGです。</p>
         </div>
       </section>
     </>
