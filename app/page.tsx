@@ -20,7 +20,7 @@ export default function HomePage() {
       {/* ホーム用の短い案内など（必要に応じて追加） */}
       <section className="py-16 bg-purple-50">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-3xl font-bold text-purple-900 mb-4">WELCOME TO TEAM PURPLE</h3>
+          <h3 className="text-3xl font-bold text-purple-900 mb-4">WELCOME TO 深谷PG</h3>
           <p className="text-gray-600">私たちは深谷PGです。</p>
         </div>
       </section>

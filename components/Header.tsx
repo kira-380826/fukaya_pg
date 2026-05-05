@@ -79,6 +79,12 @@ export default function Header() {
                 <span className="text-lg">スケジュール</span>
               </Link>
             </li>
+            <li>
+              <Link href="/sponsors" onClick={closeMenu} className="flex items-center p-3 rounded-lg hover:bg-purple-800 transition group">
+                <Mail className="mr-4 group-hover:scale-110 transition" size={20} /> 
+                <span className="text-lg">スポンサーサイト</span>
+              </Link>
+            </li>
             
             {/* お問い合わせだけデザインを変えて目立たせる例 */}
             <li className="pt-6">
