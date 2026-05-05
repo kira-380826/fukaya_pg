@@ -30,55 +30,24 @@ async function getCalendarEvents() {
   }
 }
 
-export default async function SchedulePage() {
-  // サーバー側でデータを取得（非同期）
-  const events = await getCalendarEvents();
-
+export default function SchedulePage() {
   return (
-    <div className="container mx-auto p-8 min-h-screen bg-white">
-      <h1 className="text-3xl font-bold text-purple-900 mb-8 border-b-2 border-purple-200 pb-2">
-        スケジュール
-      </h1>
+    <main className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6 text-left">スケジュール</h1>
       
-      {events.length === 0 ? (
-        <p className="text-gray-600">今後の予定は現在ありません。</p>
-      ) : (
-        <div className="space-y-6">
-          {events.map((event) => {
-            // 終日予定（date）と時間指定予定（dateTime）の分岐処理
-            const start = event.start?.dateTime || event.start?.date;
-            const formattedDate = start 
-              ? new Date(start).toLocaleString('ja-JP', {
-                  month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
-                }) 
-              : '日時未定';
-
-            return (
-              <div 
-                key={event.id} 
-                className="bg-white p-6 rounded-xl shadow-md border-l-8 border-purple-800 hover:shadow-lg transition-shadow"
-              >
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <p className="text-purple-600 font-bold mb-1">{formattedDate}</p>
-                    <h2 className="text-xl font-bold text-gray-900">{event.summary}</h2>
-                    {event.description && (
-                      <p className="text-gray-600 mt-2 text-sm">{event.description}</p>
-                    )}
-                  </div>
-                  {event.location && (
-                    <div className="mt-4 md:mt-0 text-right">
-                      <span className="inline-block bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">
-                        📍 {event.location}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+      <div className="flex justify-center">
+        {/* カレンダーをレスポンシブに表示するためのラッパー */}
+        <div className="w-full max-w-[800px] bg-[#F8F5FA] rounded-lg shadow-md overflow-hidden">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?src=1d0e374c70e656a9569f1ebd1f337475db8c1a93c1b95f553c17c749cfca76b2%40group.calendar.google.com&ctz=Asia%2FTokyo"
+            style={{ border: 0 }}
+            width="100%"
+            height="600"
+            frameBorder="0"
+            scrolling="no"
+          />
         </div>
-      )}
-    </div>
+      </div>
+    </main>
   );
 }

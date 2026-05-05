@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${inter.className} min-h-screen flex flex-col bg-white text-gray-900 font-sans`}>
+      <body className={`${inter.className} min-h-screen flex flex-col bg-purple-50 text-gray-900 font-sans`}>
         {/* 全ページ共通のヘッダー */}
         <Header />
         
