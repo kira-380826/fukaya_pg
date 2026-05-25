@@ -16,7 +16,7 @@ export default function Header() {
   return (
     <>
       {/* --- 上部のナビゲーションバー --- */}
-      <nav className="bg-purple-900 text-white p-4 sticky top-0 z-50 shadow-md">
+      <nav className="bg-purple-900/80 backdrop-blur-md text-white p-4 sticky top-0 z-50 shadow-md border-b border-purple-800/50 transition-all">
         <div className="container mx-auto flex items-center">
           {/* メニューを開くためのボタン（PC/スマホ共通で表示） */}
           <button 

@@ -1,10 +1,15 @@
-"use client";
+import React from 'react';
+
+export const metadata = {
+  title: 'SPONSORS | 深谷PG',
+  description: '深谷PGを支援していただいているスポンサー様の一覧と募集について',
+};
 
 export default function SponsorsPage() {
   // スポンサーのデータ（本来はデータベースなどから取得しますが、今回はサンプルとして配列を用意しています）
   const currentSponsors = [
-    { id: 1, name: "株式会社〇〇テック", url: "https://example.com", plan: "Gold", imageUrl: "" },
-    { id: 2, name: "Sample Design LLC.", url: "https://example.com", plan: "Silver", imageUrl: "" },
+    { id: 1, name: "株式会社〇〇テック", url: "https://example.com", plan: "Gold", imageUrl: "/sponsor-dummy.png" },
+    { id: 2, name: "Sample Design LLC.", url: "https://example.com", plan: "Silver", imageUrl: "/sponsor-dummy.png" },
   ];
 
   return (

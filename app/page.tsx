@@ -1,27 +1,42 @@
+"use client";
+
 import React from 'react';
 import { Calendar, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export default function HomePage() {
   // スポンサーのデータ（/sponsors/page.tsx と同じものを使用）
   const currentSponsors = [
-    { id: 1, name: "株式会社〇〇テック", url: "https://example.com", plan: "Gold", imageUrl: "" },
-    { id: 2, name: "Sample Design LLC.", url: "https://example.com", plan: "Silver", imageUrl: "" },
-    { id: 3, name: "〇〇工務店", url: "https://example.com", plan: "Bronze", imageUrl: "" },
+    { id: 1, name: "株式会社〇〇テック", url: "https://example.com", plan: "Gold", imageUrl: "/sponsor-dummy.png" },
+    { id: 2, name: "Sample Design LLC.", url: "https://example.com", plan: "Silver", imageUrl: "/sponsor-dummy.png" },
+    { id: 3, name: "〇〇工務店", url: "https://example.com", plan: "Bronze", imageUrl: "/sponsor-dummy.png" },
   ];
 
   return (
     <>
       {/* ヒーローセクション */}
-      <section className="relative h-[70vh] flex items-center justify-center bg-purple-500 overflow-hidden">
-        <div className="absolute inset-0 bg-black opacity-40"></div>
-        <div className="relative z-10 text-center text-white px-4">
-          <h2 className="text-5xl md:text-7xl font-extrabold mb-4 italic">BEYOND THE LIMIT</h2>
-          <p className="text-xl md:text-2xl mb-8">誇りを胸に、勝利をその手に。</p>
-          <Link href="/match" className="bg-white text-purple-900 px-8 py-3 rounded-md font-bold text-lg hover:bg-purple-100 transition shadow-lg inline-block">
-            最新の試合結果を見る
-          </Link>
-        </div>
+      <section 
+        className="relative h-[80vh] flex items-center justify-center bg-purple-900 overflow-hidden"
+        style={{ backgroundImage: 'url("/hero-bg.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/90 to-black/60 z-0"></div>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative z-10 text-center text-white px-4 max-w-4xl"
+        >
+          <h2 className="text-5xl md:text-8xl font-extrabold mb-6 italic tracking-tighter drop-shadow-lg">
+            BEYOND <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">THE LIMIT</span>
+          </h2>
+          <p className="text-xl md:text-3xl mb-10 font-light tracking-wide text-gray-200">誇りを胸に、勝利をその手に。</p>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Link href="/match" className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-10 py-4 rounded-full font-bold text-xl transition-all shadow-[0_0_20px_rgba(168,85,247,0.4)] inline-block border border-purple-400/30">
+              最新の試合結果を見る
+            </Link>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* ホーム用の短い案内など（必要に応じて追加） */}
