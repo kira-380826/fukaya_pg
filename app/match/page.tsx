@@ -30,6 +30,26 @@ export const metadata = {
 
 export const revalidate = 0;
 
+// microCMSのセレクトフィールド等（文字列、配列、オブジェクト）から安全に文字列を抽出するヘルパー
+const getFieldValue = (field: any): string => {
+  if (field === null || field === undefined) return "";
+  if (typeof field === "string") return field;
+  if (typeof field === "number") return String(field);
+  if (Array.isArray(field)) return getFieldValue(field[0]);
+  if (typeof field === "object") {
+    return field.name || field.label || field.value || field.id || "";
+  }
+  return String(field);
+};
+
+// 安全な日付フォーマットヘルパー
+const formatDate = (dateStr?: string): string => {
+  if (!dateStr) return "DATE TBD";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr || "DATE TBD";
+  return d.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
+};
+
 export default async function MatchPage() {
   let matches: Match[] = [];
 
@@ -78,9 +98,9 @@ export default async function MatchPage() {
         {/* 試合結果カード一覧 (Pitch Precision Match Report UI) */}
         <div className="space-y-8">
           {matches.map((match) => {
-            const homeAwayStr = Array.isArray(match.homeAway) ? match.homeAway[0] : (match.homeAway || "");
-            const resultStr = Array.isArray(match.result) ? match.result[0] : (match.result || "");
-            const dateStr = new Date(match.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            const homeAwayStr = getFieldValue(match.homeAway);
+            const resultStr = getFieldValue(match.result);
+            const dateStr = formatDate(match.date);
 
             return (
               <div 

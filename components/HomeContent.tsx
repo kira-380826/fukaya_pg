@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Trophy, Calendar, ChevronRight, ArrowRight, Shield, Award, Sparkles, Activity } from 'lucide-react';
+import { Trophy, Calendar, ChevronRight, ArrowRight, Shield, Award, Activity } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
@@ -28,6 +28,26 @@ interface HomeContentProps {
   matches: Match[];
   sponsors: Sponsor[];
 }
+
+// microCMSのセレクトフィールド等（文字列、配列、オブジェクト）から安全に文字列を抽出するヘルパー
+const getFieldValue = (field: any): string => {
+  if (field === null || field === undefined) return "";
+  if (typeof field === "string") return field;
+  if (typeof field === "number") return String(field);
+  if (Array.isArray(field)) return getFieldValue(field[0]);
+  if (typeof field === "object") {
+    return field.name || field.label || field.value || field.id || "";
+  }
+  return String(field);
+};
+
+// 安全な日付フォーマットヘルパー
+const formatDate = (dateStr?: string): string => {
+  if (!dateStr) return "DATE TBD";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr || "DATE TBD";
+  return d.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
+};
 
 export default function HomeContent({ matches, sponsors }: HomeContentProps) {
   return (
@@ -122,9 +142,9 @@ export default function HomeContent({ matches, sponsors }: HomeContentProps) {
         {/* スコアカード 3連グリッド (Pitch Precision Scoreboards) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {matches.map((match, idx) => {
-            const homeAwayStr = Array.isArray(match.homeAway) ? match.homeAway[0] : (match.homeAway || "");
-            const resultStr = Array.isArray(match.result) ? match.result[0] : (match.result || "");
-            const dateStr = new Date(match.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            const homeAwayStr = getFieldValue(match.homeAway);
+            const resultStr = getFieldValue(match.result);
+            const dateStr = formatDate(match.date);
 
             return (
               <motion.div 
