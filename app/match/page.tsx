@@ -1,7 +1,6 @@
 import React from 'react';
 import { client, mockMatches } from '../../libs/client';
-import { Trophy, Shield, Activity, Calendar, ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
+import { Shield, Activity, Calendar } from 'lucide-react';
 
 type Match = {
   id: string;
@@ -31,13 +30,16 @@ export const metadata = {
 export const revalidate = 0;
 
 // microCMSのセレクトフィールド等（文字列、配列、オブジェクト）から安全に文字列を抽出するヘルパー
-const getFieldValue = (field: any): string => {
+const getFieldValue = (field: unknown): string => {
   if (field === null || field === undefined) return "";
   if (typeof field === "string") return field;
   if (typeof field === "number") return String(field);
   if (Array.isArray(field)) return getFieldValue(field[0]);
   if (typeof field === "object") {
-    return field.name || field.label || field.value || field.id || "";
+    const obj = field as Record<string, unknown>;
+    const val = obj.name || obj.label || obj.value || obj.id;
+    if (val !== undefined && val !== null) return String(val);
+    return "";
   }
   return String(field);
 };

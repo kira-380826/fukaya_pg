@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, MapPin, Clock } from 'lucide-react';
+import { MapPin, Clock } from 'lucide-react';
 
 export const metadata = {
   title: 'SCHEDULE | 深谷PG',
