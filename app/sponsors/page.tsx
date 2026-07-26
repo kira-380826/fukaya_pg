@@ -1,4 +1,5 @@
 import React from 'react';
+import { Award, Shield, CheckCircle2 } from 'lucide-react';
 
 export const metadata = {
   title: 'SPONSORS | 深谷PG',
@@ -6,158 +7,194 @@ export const metadata = {
 };
 
 export default function SponsorsPage() {
-  // スポンサーのデータ（本来はデータベースなどから取得しますが、今回はサンプルとして配列を用意しています）
   const currentSponsors = [
     { id: 1, name: "株式会社〇〇テック", url: "https://example.com", plan: "Gold", imageUrl: "/sponsor-dummy.png" },
     { id: 2, name: "Sample Design LLC.", url: "https://example.com", plan: "Silver", imageUrl: "/sponsor-dummy.png" },
   ];
 
   return (
-    <main className="container mx-auto px-4 py-12 max-w-5xl">
-      <div className="text-center mb-12">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">Sponsors</h1>
-        <p className="text-gray-600">
-          私たちの活動を支援していただけるスポンサー様を募集しております。<br />
-          皆様からのご支援は、プロジェクトの運営や開発資金として大切に活用させていただきます。
-        </p>
+    <div className="bg-[#101415] text-[#e0e3e5] min-h-screen font-sans py-16 px-4 relative overflow-hidden">
+      {/* アンビエントグロー */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-10 right-20 w-96 h-96 bg-[#ffd700]/10 blur-[150px] rounded-full"></div>
+        <div className="absolute bottom-10 left-20 w-96 h-96 bg-purple-600/15 blur-[160px] rounded-full"></div>
       </div>
 
-      {/* === 1. スポンサープラン一覧 === */}
-      <section className="mb-20">
-        <h2 className="text-2xl font-bold mb-8 text-center text-gray-800">スポンサープラン</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {/* 5,000円プラン */}
-          <div className="bg-white rounded-xl shadow-md p-6 border-t-4 border-[#cd7f32] flex flex-col">
-            <h3 className="text-lg font-bold mb-2 text-center text-gray-700">ブロンズプラン</h3>
-            <p className="text-3xl font-bold text-center mb-6 text-gray-800">
-              ¥5,000<span className="text-sm font-normal text-gray-500"> / 月</span>
-            </p>
-            <ul className="text-sm text-gray-600 space-y-3 mb-6 flex-grow">
-              <li>✓ Webサイトへのお名前掲載（テキスト）</li>
-              <li>✓ SNSでの感謝のメッセージ</li>
-            </ul>
+      <div className="container mx-auto max-w-5xl relative z-10">
+        {/* ヘッダーバナー */}
+        <div className="mb-16 border-b border-white/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#ffd700] animate-pulse"></span>
+              <span className="font-mono text-xs text-[#ffd700] tracking-[0.2em] uppercase font-bold">
+                PARTNERSHIP & SUPPORT
+              </span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight uppercase text-white">
+              SPONSORS
+            </h1>
           </div>
-
-          {/* 10,000円プラン */}
-          <div className="bg-white rounded-xl shadow-md p-6 border-t-4 border-[#c0c0c0] flex flex-col transform md:-translate-y-4">
-            <h3 className="text-lg font-bold mb-2 text-center text-gray-700">シルバープラン</h3>
-            <p className="text-3xl font-bold text-center mb-6 text-gray-800">
-              ¥10,000<span className="text-sm font-normal text-gray-500"> / 月</span>
-            </p>
-            <ul className="text-sm text-gray-600 space-y-3 mb-6 flex-grow">
-              <li>✓ Webサイトへのロゴ掲載（小）</li>
-              <li>✓ SNSでの定期的な紹介</li>
-              <li>✓ イベント時のロゴ掲出</li>
-            </ul>
-          </div>
-
-          {/* 20,000円プラン */}
-          <div className="bg-white rounded-xl shadow-md p-6 border-t-4 border-[#ffd700] flex flex-col">
-            <h3 className="text-lg font-bold mb-2 text-center text-gray-700">ゴールドプラン</h3>
-            <p className="text-3xl font-bold text-center mb-6 text-gray-800">
-              ¥20,000<span className="text-sm font-normal text-gray-500"> / 月</span>
-            </p>
-            <ul className="text-sm text-gray-600 space-y-3 mb-6 flex-grow">
-              <li>✓ Webサイトへの特大ロゴ掲載</li>
-              <li>✓ SNSでの重点的な紹介</li>
-              <li>✓ 各種制作物へのクレジット記載</li>
-              <li>✓ 個別ミーティング（希望制）</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* === 2. 現在のスポンサー表示エリア === */}
-      <section className="mb-20">
-        <div className="flex items-center justify-center gap-4 mb-10">
-          <div className="h-px bg-gray-300 w-12 md:w-24"></div>
-          <h2 className="text-3xl font-bold text-center text-gray-800 tracking-wider">SPONSORS</h2>
-          <div className="h-px bg-gray-300 w-12 md:w-24"></div>
+          <p className="text-gray-400 text-sm md:text-base max-w-sm">
+            私たちの活動を支援していただけるスポンサー様の一覧と募集プランについて。
+          </p>
         </div>
 
-        {currentSponsors.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        {/* --- 1. スポンサープラン一覧 (Pitch Precision Plans) --- */}
+        <section className="mb-24">
+          <div className="flex items-center gap-3 mb-8">
+            <Shield className="h-5 w-5 text-purple-400" />
+            <h2 className="text-2xl md:text-3xl font-extrabold uppercase text-white tracking-wider">
+              SPONSORSHIP PLANS <span className="text-sm font-mono text-gray-500 font-normal">/ スポンサープラン</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 items-stretch">
+            {/* ブロンズプラン */}
+            <div className="bg-[#1d2022]/80 backdrop-blur-xl rounded-2xl p-8 border border-white/10 border-t-4 border-t-amber-600 flex flex-col justify-between shadow-2xl hover:border-amber-600/50 transition-all">
+              <div>
+                <span className="font-mono text-xs text-amber-500 tracking-widest uppercase block mb-2">PARTNER PLAN</span>
+                <h3 className="text-xl font-black text-white mb-4">ブロンズプラン</h3>
+                <p className="text-4xl font-black text-white mb-6">
+                  ¥5,000<span className="text-xs font-mono font-normal text-gray-400"> / 月</span>
+                </p>
+                <ul className="text-sm text-gray-300 space-y-4 mb-8">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <span>Webサイトへのお名前掲載（テキスト）</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <span>SNSでの感謝のメッセージ</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="pt-6 border-t border-white/10 text-center">
+                <span className="text-xs font-mono text-gray-500">OFFICIAL BRONZE PARTNER</span>
+              </div>
+            </div>
+
+            {/* シルバープラン */}
+            <div className="bg-[#1d2022]/90 backdrop-blur-xl rounded-2xl p-8 border border-white/10 border-t-4 border-t-gray-300 flex flex-col justify-between shadow-2xl hover:border-gray-300/50 transition-all transform md:-translate-y-2">
+              <div>
+                <span className="font-mono text-xs text-gray-300 tracking-widest uppercase block mb-2">POPULAR PLAN</span>
+                <h3 className="text-xl font-black text-white mb-4">シルバープラン</h3>
+                <p className="text-4xl font-black text-white mb-6">
+                  ¥10,000<span className="text-xs font-mono font-normal text-gray-400"> / 月</span>
+                </p>
+                <ul className="text-sm text-gray-300 space-y-4 mb-8">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-gray-300 flex-shrink-0 mt-0.5" />
+                    <span>Webサイトへのロゴ掲載（小）</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-gray-300 flex-shrink-0 mt-0.5" />
+                    <span>SNSでの定期的な紹介</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-gray-300 flex-shrink-0 mt-0.5" />
+                    <span>イベント時のロゴ掲出</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="pt-6 border-t border-white/10 text-center">
+                <span className="text-xs font-mono text-gray-400">OFFICIAL SILVER PARTNER</span>
+              </div>
+            </div>
+
+            {/* ゴールドプラン */}
+            <div className="bg-gradient-to-b from-[#1d2022] to-[#15181a] backdrop-blur-xl rounded-2xl p-8 border border-[#ffd700]/30 border-t-4 border-t-[#ffd700] flex flex-col justify-between shadow-[0_0_30px_rgba(255,215,0,0.15)] hover:border-[#ffd700] transition-all">
+              <div>
+                <span className="font-mono text-xs text-[#ffd700] tracking-widest uppercase block mb-2 font-bold animate-pulse">PREMIUM PLAN</span>
+                <h3 className="text-xl font-black text-white mb-4">ゴールドプラン</h3>
+                <p className="text-4xl font-black text-[#ffd700] mb-6">
+                  ¥20,000<span className="text-xs font-mono font-normal text-gray-400"> / 月</span>
+                </p>
+                <ul className="text-sm text-gray-300 space-y-4 mb-8">
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-[#ffd700] flex-shrink-0 mt-0.5" />
+                    <span>Webサイトへのロゴ掲載（大・最上部）</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-[#ffd700] flex-shrink-0 mt-0.5" />
+                    <span>練習着や公式グッズへのロゴ掲載</span>
+                  </li>
+                  <li className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-[#ffd700] flex-shrink-0 mt-0.5" />
+                    <span>選手とのコラボ企画やイベント優先招待</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="pt-6 border-t border-white/10 text-center">
+                <span className="text-xs font-mono font-bold text-[#ffd700]">OFFICIAL GOLD PARTNER</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* --- 2. 現在のスポンサー様一覧 --- */}
+        <section className="mb-24">
+          <div className="flex items-center gap-3 mb-8">
+            <Award className="h-5 w-5 text-[#ffd700]" />
+            <h2 className="text-2xl md:text-3xl font-extrabold uppercase text-white tracking-wider">
+              CURRENT PARTNERS <span className="text-sm font-mono text-gray-500 font-normal">/ ご協賛企業様</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
             {currentSponsors.map((sponsor) => (
               <a
                 key={sponsor.id}
                 href={sponsor.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                // Goldの場合はカードを大きくし、枠線を金色にするなどの強調処理
-                className={`group flex flex-col bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:-translate-y-1 ${
-                  sponsor.plan === "Gold" ? "md:col-span-2 border-b-4 border-b-[#ffd700]" : 
-                  sponsor.plan === "Silver" ? "border-b-4 border-b-[#c0c0c0]" : 
-                  "border-b-4 border-b-[#cd7f32]"
-                }`}
+                className="group bg-[#1d2022]/90 backdrop-blur-xl rounded-2xl border border-white/10 p-8 flex flex-col items-center justify-center hover:border-purple-500/50 transition-all shadow-2xl relative overflow-hidden"
               >
-                {/* ロゴ画像エリア */}
-                <div className={`flex items-center justify-center bg-gray-50 p-4 ${sponsor.plan === "Gold" ? "h-48 md:h-56" : "h-32 md:h-40"}`}>
+                <div className="absolute top-0 right-0 px-4 py-1.5 bg-black/40 rounded-bl-xl border-l border-b border-white/5 font-mono text-xs text-gray-400">
+                  {sponsor.plan.toUpperCase()} PARTNER
+                </div>
+
+                <div className="h-28 flex items-center justify-center my-6 w-full">
                   {sponsor.imageUrl ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img 
                       src={sponsor.imageUrl} 
                       alt={`${sponsor.name} logo`} 
-                      className="max-h-full max-w-full object-contain filter group-hover:brightness-105 transition-all"
+                      className="max-h-full max-w-full object-contain filter brightness-90 group-hover:brightness-110 group-hover:scale-105 transition-all duration-300"
                     />
                   ) : (
-                    // 画像がない場合のプレースホルダー（ダミー表示）
-                    <div className="flex flex-col items-center justify-center text-gray-400">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 mb-2 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <span className="text-xs font-medium tracking-wider">LOGO COMING SOON</span>
-                    </div>
+                    <span className="text-gray-500 font-mono text-sm">LOGO PLACEHOLDER</span>
                   )}
                 </div>
 
-                {/* テキスト情報エリア */}
-                <div className="p-5 flex flex-col items-center border-t border-gray-100 bg-white">
-                  <span className={`font-bold text-gray-800 text-center mb-1 ${sponsor.plan === "Gold" ? "text-xl" : "text-md"}`}>
+                <div className="w-full pt-4 border-t border-white/10 flex items-center justify-between mt-auto">
+                  <span className="font-bold text-white text-lg group-hover:text-purple-300 transition-colors">
                     {sponsor.name}
                   </span>
-                  <span className={`text-xs font-bold tracking-wider ${
-                    sponsor.plan === "Gold" ? "text-[#ffd700]" : 
-                    sponsor.plan === "Silver" ? "text-[#9ca3af]" : 
-                    "text-[#cd7f32]"
-                  }`}>
-                    {sponsor.plan.toUpperCase()} SPONSOR
-                  </span>
+                  <span className="text-xs font-mono text-gray-500 group-hover:text-white transition-colors">VISIT SITE →</span>
                 </div>
               </a>
             ))}
           </div>
-        ) : (
-          <div className="bg-white rounded-xl shadow-sm p-12 text-center border border-gray-100">
-            <p className="text-gray-500">現在、第一期スポンサー様を募集しております。</p>
-          </div>
-        )}
-      </section>
+        </section>
 
-      {/* === 3. 応募フォームへのリンク === */}
-      <section className="max-w-2xl mx-auto mb-20">
-        <div className="bg-white rounded-xl shadow-md p-8 md:p-12 text-center border-t-4 border-purple-500">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">スポンサーに応募する</h2>
-          <p className="text-gray-600 mb-8 leading-relaxed">
-            私たちの活動にご賛同いただきありがとうございます。<br className="hidden md:block" />
-            以下のボタンより、専用の応募フォーム（Googleフォーム）へお進みください。
-          </p>
+        {/* --- 3. お問い合わせバナー --- */}
+        <section className="bg-[#191c1e]/90 backdrop-blur-xl rounded-3xl p-8 md:p-14 border border-white/10 text-center relative overflow-hidden shadow-2xl">
+          <div className="absolute -right-20 -top-20 w-60 h-60 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none"></div>
           
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLScdIsW_GC-1SIB_zh0Tadu1xXRj-VC7tofgzakeArACJjXHOg/viewform?usp=header" 
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-10 rounded-full transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
-          >
-            応募フォームを開く
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </a>
-          <p className="text-xs text-gray-400 mt-6">
-            ※クリックすると外部サイト（Google Forms）へ移動します。
+          <h2 className="text-3xl md:text-4xl font-black uppercase text-white mb-4">
+            JOIN AS A PARTNER
+          </h2>
+          <p className="text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+            スポンサーに関する詳細な資料や、ご予算に合わせたカスタマイズプランのご相談など、何でもお気軽にお問い合わせください。
           </p>
-        </div>
-      </section>
-    </main>
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-3 bg-[#ffd700] hover:bg-white text-[#101415] font-black py-4 px-10 rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(255,215,0,0.3)] tracking-wider uppercase"
+          >
+            <span>お問い合わせ・ご相談はこちら</span>
+          </a>
+        </section>
+      </div>
+    </div>
   );
 }

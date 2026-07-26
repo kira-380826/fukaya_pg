@@ -1,7 +1,8 @@
 import React from 'react';
 import { client, mockMatches } from '../../libs/client';
+import { Trophy, Shield, Activity, Calendar, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
-// microCMSから取得する試合結果の型定義
 type Match = {
   id: string;
   date: string;
@@ -27,22 +28,19 @@ export const metadata = {
   description: '深谷PGの最新の試合結果とレポート',
 };
 
-// キャッシュを無効化して常に最新を取得
 export const revalidate = 0;
 
 export default async function MatchPage() {
   let matches: Match[] = [];
 
   try {
-    // APIキーが設定されている場合はmicroCMSから取得
     if (process.env.MICRO_CMS_SERVICE_DOMAIN && process.env.MICRO_CMS_API_KEY) {
       const data = await client.getList<Match>({ 
         endpoint: 'matches',
-        customRequestInit: { cache: 'no-store' } // キャッシュを完全に無効化して常に最新データを取得
+        customRequestInit: { cache: 'no-store' }
       });
       matches = data.contents;
     } else {
-      // 未設定の場合はモックデータを使用
       matches = mockMatches as Match[];
     }
   } catch (error) {
@@ -51,92 +49,131 @@ export default async function MatchPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16 max-w-5xl">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-purple-900 tracking-tight">MATCH REPORTS</h1>
-        <p className="text-gray-600">最新の試合結果をお届けします。</p>
+    <div className="bg-[#101415] text-[#e0e3e5] min-h-screen font-sans py-16 px-4 relative overflow-hidden">
+      {/* アンビエントグロー光 */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-10 right-10 w-96 h-96 bg-purple-600/10 blur-[150px] rounded-full"></div>
+        <div className="absolute bottom-10 left-10 w-96 h-96 bg-[#ffd700]/10 blur-[160px] rounded-full"></div>
       </div>
 
-      <div className="grid gap-6">
-        {matches.map((match) => {
-          // microCMSのセレクトフィールドは設定によって配列（["Home"]など）で返るため、文字列として取り出す
-          const homeAwayStr = Array.isArray(match.homeAway) ? match.homeAway[0] : (match.homeAway || "");
-          const resultStr = Array.isArray(match.result) ? match.result[0] : (match.result || "");
+      <div className="container mx-auto max-w-5xl relative z-10">
+        {/* ヘッダーバナー */}
+        <div className="mb-16 border-b border-white/10 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#ffd700] animate-pulse"></span>
+              <span className="font-mono text-xs text-[#ffd700] tracking-[0.2em] uppercase font-bold">
+                FUKAYA PG OFFICIAL FOOTBALL CLUB
+              </span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight uppercase text-white">
+              MATCH REPORTS
+            </h1>
+          </div>
+          <p className="text-gray-400 text-sm md:text-base max-w-sm">
+            熱戦の記録。最新の試合結果と詳細なレポートをお届けします。
+          </p>
+        </div>
 
-          return (
-            <div key={match.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col hover:shadow-md transition-shadow">
-              
-              {/* 上部：試合情報の横並びレイアウト */}
-              <div className="flex flex-col md:flex-row items-center justify-between">
-                
-                {/* 日付とHome/Away */}
-                <div className="flex flex-col text-center md:text-left mb-4 md:mb-0 md:w-1/4">
-                  <span className="text-sm font-bold text-gray-400 mb-1">
-                    {new Date(match.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' })}
-                  </span>
-                  <span className={`inline-block px-3 py-1 text-xs font-bold rounded-full w-max mx-auto md:mx-0 ${
-                    homeAwayStr === 'Home' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'
-                  }`}>
-                    {homeAwayStr.toUpperCase()}
-                  </span>
-                </div>
+        {/* 試合結果カード一覧 (Pitch Precision Match Report UI) */}
+        <div className="space-y-8">
+          {matches.map((match) => {
+            const homeAwayStr = Array.isArray(match.homeAway) ? match.homeAway[0] : (match.homeAway || "");
+            const resultStr = Array.isArray(match.result) ? match.result[0] : (match.result || "");
+            const dateStr = new Date(match.date).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
-                {/* スコアと対戦相手 */}
-                <div className="flex items-center justify-center space-x-6 md:w-2/4 mb-4 md:mb-0">
-                  <div className="text-right flex-1">
-                    <span className="font-bold text-lg md:text-xl text-gray-800">深谷PG</span>
-                  </div>
+            return (
+              <div 
+                key={match.id} 
+                className="bg-[#1d2022]/90 backdrop-blur-xl rounded-2xl border border-white/10 p-6 md:p-8 hover:border-purple-500/40 transition-all duration-300 shadow-2xl group relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-purple-500 to-[#ffd700] opacity-80"></div>
+
+                {/* 上部情報の横並び */}
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-6 pb-6 border-b border-white/10">
                   
-                  <div className="flex items-center justify-center space-x-3 bg-gray-50 px-6 py-3 rounded-xl">
-                    <span className={`text-3xl font-bold ${match.ourScore > match.opponentScore ? 'text-purple-600' : 'text-gray-800'}`}>
-                      {match.ourScore}
-                    </span>
-                    <span className="text-gray-400 font-bold">-</span>
-                    <span className={`text-3xl font-bold ${match.opponentScore > match.ourScore ? 'text-red-600' : 'text-gray-800'}`}>
-                      {match.opponentScore}
-                    </span>
-                  </div>
-
-                  <div className="text-left flex-1">
-                    <span className="font-bold text-lg md:text-xl text-gray-800">{match.opponent}</span>
-                  </div>
-                </div>
-
-                {/* 結果バッジとレポート */}
-                <div className="flex flex-col items-center md:items-end md:w-1/4 text-center md:text-right">
-                  <span className={`px-4 py-1 text-sm font-extrabold rounded-md mb-2 ${
-                    resultStr === 'WIN' ? 'bg-green-100 text-green-700' :
-                    resultStr === 'LOSE' ? 'bg-red-100 text-red-700' :
-                    'bg-gray-200 text-gray-700'
-                  }`}>
-                    {resultStr}
-                  </span>
-                  <p className="text-xs text-gray-500 max-w-xs">{match.report}</p>
-                </div>
-              </div>
-
-              {/* 下部：写真がある場合は中央に大きく表示 */}
-              {(() => {
-                // 単一画像フィールドと複数画像フィールドのどちらにも対応
-                const photoObj = Array.isArray(match.photo) ? match.photo[0] : match.photo;
-                if (!photoObj || !photoObj.url) return null;
-                
-                return (
-                  <div className="mt-6 flex justify-center w-full border-t border-gray-50 pt-6">
-                    <div className="w-full max-w-2xl overflow-hidden rounded-xl shadow-sm border border-gray-100">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img 
-                        src={photoObj.url} 
-                        alt={`${match.opponent}戦の写真`} 
-                        className="w-full h-auto max-h-[400px] object-cover hover:scale-[1.02] transition-transform duration-500"
-                      />
+                  {/* 日付と区分 */}
+                  <div className="flex items-center gap-4 w-full lg:w-1/4">
+                    <div className="w-12 h-12 rounded-xl bg-[#15181a] border border-white/10 flex flex-col items-center justify-center text-gray-300 font-mono">
+                      <Calendar size={18} className="text-purple-400 mb-0.5" />
+                    </div>
+                    <div>
+                      <span className="text-sm font-mono font-bold text-gray-300 block">
+                        {dateStr}
+                      </span>
+                      <span className={`inline-block px-2.5 py-0.5 text-[10px] font-mono font-bold rounded-full uppercase mt-1 ${
+                        homeAwayStr === 'Home' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' : 'bg-white/10 text-gray-300 border border-white/20'
+                      }`}>
+                        {homeAwayStr.toUpperCase()} MATCH
+                      </span>
                     </div>
                   </div>
-                );
-              })()}
-            </div>
-          );
-        })}
+
+                  {/* スコアボード中央エリア */}
+                  <div className="flex items-center justify-center space-x-4 sm:space-x-8 w-full lg:w-2/4 bg-[#15181a]/80 p-4 rounded-xl border border-white/5">
+                    <div className="text-right flex-1 flex items-center justify-end gap-2 sm:gap-3">
+                      <span className="font-extrabold text-base sm:text-xl text-white truncate">深谷PG</span>
+                      <div className="w-8 h-8 rounded-full bg-purple-900/50 border border-purple-500/30 flex items-center justify-center text-purple-300 flex-shrink-0 hidden sm:flex">
+                        <Shield size={16} />
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-center space-x-3 px-4 py-1">
+                      <span className={`text-3xl sm:text-4xl font-black ${match.ourScore > match.opponentScore ? 'text-[#ffd700]' : 'text-white'}`}>
+                        {match.ourScore}
+                      </span>
+                      <span className="text-gray-500 font-extrabold text-2xl">-</span>
+                      <span className={`text-3xl sm:text-4xl font-black ${match.opponentScore > match.ourScore ? 'text-red-400' : 'text-gray-300'}`}>
+                        {match.opponentScore}
+                      </span>
+                    </div>
+
+                    <div className="text-left flex-1 flex items-center justify-start gap-2 sm:gap-3">
+                      <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 flex-shrink-0 hidden sm:flex">
+                        <Activity size={16} />
+                      </div>
+                      <span className="font-extrabold text-base sm:text-xl text-gray-300 truncate">{match.opponent}</span>
+                    </div>
+                  </div>
+
+                  {/* 結果バッジ */}
+                  <div className="flex lg:justify-end w-full lg:w-1/4">
+                    <span className={`px-5 py-2 text-sm font-mono font-extrabold rounded-full tracking-widest uppercase shadow-lg w-full lg:w-auto text-center ${
+                      resultStr === 'WIN' ? 'bg-[#ffd700]/20 text-[#ffd700] border border-[#ffd700]/40 shadow-[0_0_15px_rgba(255,215,0,0.2)]' :
+                      resultStr === 'LOSE' ? 'bg-red-500/20 text-red-400 border border-red-500/40' :
+                      'bg-gray-500/20 text-gray-300 border border-gray-500/40'
+                    }`}>
+                      {resultStr}
+                    </span>
+                  </div>
+                </div>
+
+                {/* 下部：レポートテキストと写真 */}
+                <div className="pt-6">
+                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6 border-l-2 border-purple-500 pl-4 py-1">
+                    {match.report}
+                  </p>
+
+                  {(() => {
+                    const photoObj = Array.isArray(match.photo) ? match.photo[0] : match.photo;
+                    if (!photoObj || !photoObj.url) return null;
+                    
+                    return (
+                      <div className="mt-6 overflow-hidden rounded-xl border border-white/10 shadow-2xl">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img 
+                          src={photoObj.url} 
+                          alt={`${match.opponent}戦の写真`} 
+                          className="w-full h-auto max-h-[480px] object-cover hover:scale-105 transition-transform duration-700 brightness-95 hover:brightness-105"
+                        />
+                      </div>
+                    );
+                  })()}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
