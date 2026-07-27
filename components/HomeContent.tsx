@@ -284,9 +284,14 @@ export default function HomeContent({ matches, sponsors }: HomeContentProps) {
                 SPONSORS
               </h2>
             </div>
-            <p className="text-gray-400 text-sm md:text-base max-w-md">
-              深谷PGの活動は、以下のスポンサー様の支援により成り立っています。
-            </p>
+            <div className="max-w-md">
+              <p className="text-gray-400 text-sm md:text-base">
+                深谷PGの活動は、以下のスポンサー様の支援により成り立っています。
+              </p>
+              <p className="mt-2 text-xs text-amber-400 font-mono bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded inline-block">
+                ※現在表示の企業様は掲載イメージ（サンプルデータ）です
+              </p>
+            </div>
           </div>
 
           {/* スポンサーロゴ一覧 */}
@@ -335,9 +340,9 @@ export default function HomeContent({ matches, sponsors }: HomeContentProps) {
                         className="max-h-full max-w-full object-contain filter brightness-90 group-hover:brightness-110 group-hover:scale-105 transition-all duration-300"
                       />
                     ) : (
-                      <div className="flex flex-col items-center justify-center text-gray-600">
-                        <Award className="h-10 w-10 mb-2 opacity-40" />
-                        <span className="text-xs font-mono">LOGO PLACEHOLDER</span>
+                      <div className="flex flex-col items-center justify-center text-gray-500">
+                        <Award className="h-8 w-8 mb-1.5 opacity-40 text-amber-400" />
+                        <span className="font-mono text-xs text-amber-400/80 font-bold">SAMPLE LOGO IMAGE</span>
                       </div>
                     )}
                   </div>

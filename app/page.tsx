@@ -36,11 +36,11 @@ export default async function HomePage() {
     matches = mockMatches as Match[];
   }
 
-  // スポンサーのデータ（既存のデータを完全に保持）
+  // スポンサーのデータ（サンプルであることが明確にわかるように表記）
   const currentSponsors = [
-    { id: 1, name: "株式会社〇〇テック", url: "https://example.com", plan: "Gold", imageUrl: "/sponsor-dummy.png" },
-    { id: 2, name: "Sample Design LLC.", url: "https://example.com", plan: "Silver", imageUrl: "/sponsor-dummy.png" },
-    { id: 3, name: "〇〇工務店", url: "https://example.com", plan: "Bronze", imageUrl: "/sponsor-dummy.png" },
+    { id: 1, name: "【サンプル】株式会社〇〇テック", url: "https://example.com", plan: "Gold", imageUrl: "" },
+    { id: 2, name: "【サンプル】Sample Design LLC.", url: "https://example.com", plan: "Silver", imageUrl: "" },
+    { id: 3, name: "【サンプル】〇〇工務店", url: "https://example.com", plan: "Bronze", imageUrl: "" },
   ];
 
   return <HomeContent matches={matches} sponsors={currentSponsors} />;

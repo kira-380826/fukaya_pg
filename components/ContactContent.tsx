@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Send, Mail, MapPin, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Send, Mail, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function ContactContent() {
   const [formData, setFormData] = useState({
@@ -103,16 +103,6 @@ export default function ContactContent() {
                   >
                     fukawapg@gmail.com
                   </a>
-                </div>
-              </div>
-
-              <div className="flex items-center bg-[#15181a] p-4 rounded-xl border border-white/5">
-                <div className="bg-purple-900/40 border border-purple-500/30 p-3 rounded-xl mr-4 text-purple-400">
-                  <MapPin size={20} />
-                </div>
-                <div>
-                  <p className="text-xs text-gray-500 font-mono uppercase tracking-wider">Club Location</p>
-                  <p className="font-bold text-white text-sm">埼玉県深谷市〇〇 1-2-3</p>
                 </div>
               </div>
             </div>

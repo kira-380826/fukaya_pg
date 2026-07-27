@@ -8,8 +8,8 @@ export const metadata = {
 
 export default function SponsorsPage() {
   const currentSponsors = [
-    { id: 1, name: "株式会社〇〇テック", url: "https://example.com", plan: "Gold", imageUrl: "/sponsor-dummy.png" },
-    { id: 2, name: "Sample Design LLC.", url: "https://example.com", plan: "Silver", imageUrl: "/sponsor-dummy.png" },
+    { id: 1, name: "【サンプル】株式会社〇〇テック", url: "https://example.com", plan: "Gold", imageUrl: "" },
+    { id: 2, name: "【サンプル】Sample Design LLC.", url: "https://example.com", plan: "Silver", imageUrl: "" },
   ];
 
   return (
@@ -133,11 +133,21 @@ export default function SponsorsPage() {
 
         {/* --- 2. 現在のスポンサー様一覧 --- */}
         <section className="mb-24">
-          <div className="flex items-center gap-3 mb-8">
+          <div className="flex items-center gap-3 mb-4">
             <Award className="h-5 w-5 text-[#ffd700]" />
             <h2 className="text-2xl md:text-3xl font-extrabold uppercase text-white tracking-wider">
               CURRENT PARTNERS <span className="text-sm font-mono text-gray-500 font-normal">/ ご協賛企業様</span>
             </h2>
+          </div>
+
+          {/* サンプルであることを明示する注釈ボックス */}
+          <div className="bg-[#1d2022]/90 border border-amber-500/40 rounded-xl p-4 md:p-5 mb-8 flex flex-col sm:flex-row items-start sm:items-center gap-3 text-amber-300 shadow-lg">
+            <span className="text-xs font-mono bg-amber-500/20 px-3 py-1 rounded border border-amber-500/30 uppercase tracking-wider font-bold flex-shrink-0">
+              Sample Notice
+            </span>
+            <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
+              ※ 現在表示されているスポンサー企業名・ロゴはすべて<strong className="text-amber-400 font-bold underline">掲載イメージ（サンプルデータ）</strong>です。深谷PGを支援してくださるオフィシャルパートナー様を随時募集しております。
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -162,7 +172,10 @@ export default function SponsorsPage() {
                       className="max-h-full max-w-full object-contain filter brightness-90 group-hover:brightness-110 group-hover:scale-105 transition-all duration-300"
                     />
                   ) : (
-                    <span className="text-gray-500 font-mono text-sm">LOGO PLACEHOLDER</span>
+                    <div className="flex flex-col items-center justify-center text-gray-500">
+                      <Award className="h-8 w-8 mb-1.5 opacity-40 text-amber-400" />
+                      <span className="font-mono text-xs text-amber-400/80 font-bold">SAMPLE LOGO IMAGE</span>
+                    </div>
                   )}
                 </div>
 
