@@ -6,11 +6,13 @@ import Header from "../components/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fukayapg.com"),
   title: "深谷PG | サッカーチーム公式HP",
   description: "深谷PGの公式ホームページです。最新の試合結果やスケジュールをお届けします。",
   openGraph: {
     title: "深谷PG | サッカーチーム公式HP",
     description: "深谷PGの公式ホームページです。最新の試合結果やスケジュールをお届けします。",
+    url: "https://fukayapg.com",
     siteName: "深谷PG",
     locale: "ja_JP",
     type: "website",
