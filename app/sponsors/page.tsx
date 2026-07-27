@@ -118,10 +118,6 @@ export default function SponsorsPage() {
                     <CheckCircle2 className="h-4 w-4 text-[#ffd700] flex-shrink-0 mt-0.5" />
                     <span>練習着や公式グッズへのロゴ掲載</span>
                   </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="h-4 w-4 text-[#ffd700] flex-shrink-0 mt-0.5" />
-                    <span>選手とのコラボ企画やイベント優先招待</span>
-                  </li>
                 </ul>
               </div>
               <div className="pt-6 border-t border-white/10 text-center">
@@ -166,9 +162,9 @@ export default function SponsorsPage() {
                 <div className="h-28 flex items-center justify-center my-6 w-full">
                   {sponsor.imageUrl ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
-                    <img 
-                      src={sponsor.imageUrl} 
-                      alt={`${sponsor.name} logo`} 
+                    <img
+                      src={sponsor.imageUrl}
+                      alt={`${sponsor.name} logo`}
                       className="max-h-full max-w-full object-contain filter brightness-90 group-hover:brightness-110 group-hover:scale-105 transition-all duration-300"
                     />
                   ) : (
@@ -193,7 +189,7 @@ export default function SponsorsPage() {
         {/* --- 3. お問い合わせバナー --- */}
         <section className="bg-[#191c1e]/90 backdrop-blur-xl rounded-3xl p-8 md:p-14 border border-white/10 text-center relative overflow-hidden shadow-2xl">
           <div className="absolute -right-20 -top-20 w-60 h-60 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none"></div>
-          
+
           <h2 className="text-3xl md:text-4xl font-black uppercase text-white mb-4">
             JOIN AS A PARTNER
           </h2>
