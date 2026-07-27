@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Home, Trophy, Calendar, Mail, Users, ArrowRight } from 'lucide-react';
+import InstagramIcon from './InstagramIcon';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,8 +68,19 @@ export default function Header() {
             })}
           </nav>
 
-          {/* 右側アクションエリア・モバイルメニューボタン */}
-          <div className="flex items-center gap-4">
+          {/* 右側アクションエリア (SNSリンク・モバイルメニューボタン) */}
+          <div className="flex items-center gap-3">
+            <a
+              href="https://www.instagram.com/fukaya_pg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 bg-gradient-to-tr from-purple-600/20 to-pink-600/20 hover:from-purple-600 hover:to-pink-600 text-pink-400 hover:text-white rounded-lg border border-pink-500/30 hover:border-transparent transition-all duration-300 shadow-[0_0_15px_rgba(236,72,153,0.15)] hover:shadow-[0_0_20px_rgba(236,72,153,0.5)] hover:scale-105"
+              aria-label="公式Instagramを見る"
+              title="公式Instagram"
+            >
+              <InstagramIcon size={20} />
+            </a>
+
             {/* モバイル用ハンバーガーボタン */}
             <button 
               onClick={toggleMenu}
@@ -138,7 +150,16 @@ export default function Header() {
           </div>
           
           {/* サイドバー下部 */}
-          <div className="pt-6 border-t border-white/10 text-center">
+          <div className="pt-6 border-t border-white/10 flex flex-col items-center">
+            <a
+              href="https://www.instagram.com/fukaya_pg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-pink-500/40 text-pink-300 hover:text-white hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 transition-all text-xs font-bold uppercase tracking-wider mb-4"
+            >
+              <InstagramIcon size={16} />
+              <span>Official Instagram</span>
+            </a>
             <p className="text-xs text-gray-500 font-mono">FUKAYA PG OFFICIAL FOOTBALL CLUB</p>
             <p className="text-[11px] text-gray-600 mt-1">© 2026 深谷PG</p>
           </div>

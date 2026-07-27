@@ -2,6 +2,11 @@ import React from 'react';
 import { client, mockMatches } from '../../libs/client';
 import { Shield, Activity, Calendar } from 'lucide-react';
 
+export const metadata = {
+  title: '試合結果・マッチレポート',
+  description: '埼玉県深谷市を拠点とする社会人サッカーチーム「深谷PG」の公式試合結果および戦評・マッチレポート一覧です。',
+};
+
 type Match = {
   id: string;
   date: string;
@@ -20,11 +25,6 @@ type Match = {
     width: number;
     height: number;
   }>;
-};
-
-export const metadata = {
-  title: 'MATCH REPORTS | 深谷PG',
-  description: '深谷PGの最新の試合結果とレポート',
 };
 
 export const revalidate = 0;

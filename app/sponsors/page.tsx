@@ -2,8 +2,8 @@ import React from 'react';
 import { Award, Shield, CheckCircle2 } from 'lucide-react';
 
 export const metadata = {
-  title: 'SPONSORS | 深谷PG',
-  description: '深谷PGを支援していただいているスポンサー様の一覧と募集について',
+  title: 'オフィシャルパートナー・スポンサー募集',
+  description: '埼玉県深谷市の社会人サッカーチーム「深谷PG」を支援していただいているパートナー・スポンサー様の一覧および協賛募集のご案内です。',
 };
 
 export default function SponsorsPage() {

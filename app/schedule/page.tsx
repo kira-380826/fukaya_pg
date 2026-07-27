@@ -2,6 +2,11 @@ import React from 'react';
 import { client, mockSchedules } from '../../libs/client';
 import { MapPin, Clock } from 'lucide-react';
 
+export const metadata = {
+  title: '試合日程・練習スケジュール',
+  description: '埼玉県深谷市を拠点とする社会人サッカーチーム「深谷PG」の公式試合予定・練習スケジュール一覧です。',
+};
+
 type Schedule = {
   id: string;
   type?: unknown;
@@ -9,11 +14,6 @@ type Schedule = {
   title?: unknown;
   location?: unknown;
   description?: unknown;
-};
-
-export const metadata = {
-  title: 'SCHEDULE | 深谷PG',
-  description: '深谷PGの試合・練習スケジュール',
 };
 
 export const revalidate = 0;
