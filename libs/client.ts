@@ -43,3 +43,32 @@ export const mockMatches = [
     report: "前半先制するも、後半に崩れ悔しい敗戦。",
   }
 ];
+
+// スケジュール用モックデータ（環境変数が未設定またはAPI未作成の場合のフォールバック用）
+export const mockSchedules = [
+  {
+    id: "1",
+    type: "Match",
+    date: "2026-06-01T10:00:00.000Z",
+    title: "第5節 vs 県立〇〇高校OB",
+    location: "深谷市営グラウンド",
+    description: "リーグ戦第5節。応援よろしくお願いします！"
+  },
+  {
+    id: "2",
+    type: "Practice",
+    date: "2026-06-05T19:00:00.000Z",
+    title: "全体練習",
+    location: "〇〇フットサルコート",
+    description: "紅白戦中心のメニューを実施予定。"
+  },
+  {
+    id: "3",
+    type: "Match",
+    date: "2026-06-12T13:00:00.000Z",
+    title: "第6節 vs FC〇〇",
+    location: "さいたま市〇〇公園",
+    description: "アウェーでの重要な一戦です。"
+  }
+];
+

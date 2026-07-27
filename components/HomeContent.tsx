@@ -64,7 +64,7 @@ export default function HomeContent({ matches, sponsors }: HomeContentProps) {
       {/* --- 1. ヒーローセクション (2つのボタン構成) --- */}
       <section 
         className="relative min-h-[85vh] flex items-center justify-center overflow-hidden border-b border-white/10 pt-10 pb-32"
-        style={{ backgroundImage: 'url("/hero-bg.png")', backgroundSize: 'cover', backgroundPosition: 'center' }}
+        style={{ backgroundImage: 'url("/photo/homeMainphoto.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-[#101415] via-[#101415]/85 to-[#101415]/40 z-0"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#101415] via-transparent to-transparent z-0"></div>

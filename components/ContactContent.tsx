@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Send, Mail, MapPin } from 'lucide-react';
+import { Send, Mail, MapPin, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function ContactContent() {
   const [formData, setFormData] = useState({
@@ -10,20 +10,46 @@ export default function ContactContent() {
     subject: '練習試合のお申し込み',
     message: ''
   });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const targetEmail = "atsushikira0826@gmail.com";
-    const mailSubject = `【深谷PG問い合わせ】${formData.subject} (${formData.name}様)`;
-    const mailBody = `お名前/チーム名: ${formData.name}\nメールアドレス: ${formData.email}\nご用件: ${formData.subject}\n\n【お問い合わせ内容】\n${formData.message}\n\n------------------------\n深谷PG オフィシャルWEBサイトより送信`;
-    
-    const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
-    window.location.href = mailtoUrl;
+    setStatus('loading');
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'メールの送信に失敗しました。');
+      }
+
+      setStatus('success');
+      setFormData({
+        name: '',
+        email: '',
+        subject: '練習試合のお申し込み',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Submission error:', error);
+      setStatus('error');
+      setErrorMessage(error instanceof Error ? error.message : 'エラーが発生しました。');
+    }
   };
 
   return (
@@ -63,7 +89,7 @@ export default function ContactContent() {
                 ご質問やご要望がございましたら、以下のフォームまたは直接メールにてご連絡ください。確認次第、担当者より折り返しご連絡いたします。
               </p>
             </div>
-            
+
             <div className="space-y-4 pt-4 border-t border-white/10">
               <div className="flex items-center bg-[#15181a] p-4 rounded-xl border border-white/5">
                 <div className="bg-purple-900/40 border border-purple-500/30 p-3 rounded-xl mr-4 text-purple-400">
@@ -71,15 +97,15 @@ export default function ContactContent() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 font-mono uppercase tracking-wider">Email Address</p>
-                  <a 
-                    href="mailto:atsushikira0826@gmail.com" 
+                  <a
+                    href="mailto:fukawapg@gmail.com"
                     className="font-bold text-white text-sm hover:text-[#ffd700] underline transition-colors break-all"
                   >
-                    atsushikira0826@gmail.com
+                    fukawapg@gmail.com
                   </a>
                 </div>
               </div>
-              
+
               <div className="flex items-center bg-[#15181a] p-4 rounded-xl border border-white/5">
                 <div className="bg-purple-900/40 border border-purple-500/30 p-3 rounded-xl mr-4 text-purple-400">
                   <MapPin size={20} />
@@ -98,81 +124,132 @@ export default function ContactContent() {
 
           {/* 右側：お問い合わせフォーム (Pitch Precision Form) */}
           <div className="lg:col-span-7 bg-[#1d2022]/90 backdrop-blur-xl p-8 md:p-12 rounded-2xl shadow-2xl border border-white/10">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-2" htmlFor="name">
-                    お名前 / チーム名 <span className="text-[#ffd700]">*</span>
-                  </label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3.5 rounded-xl bg-[#15181a] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition font-sans text-sm"
-                    placeholder="例: 深谷 太郎"
-                    required
-                  />
+            {status === 'success' ? (
+              <div className="py-12 px-4 text-center space-y-6 animate-fade-in">
+                <div className="w-16 h-16 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center mx-auto text-green-400">
+                  <CheckCircle2 size={36} className="animate-bounce" />
+                </div>
+                <div className="space-y-2">
+                  <span className="font-mono text-xs text-green-400 tracking-widest uppercase">MESSAGE SENT</span>
+                  <h3 className="text-2xl md:text-3xl font-black text-white">お問い合わせを受け付けました</h3>
+                </div>
+                <p className="text-gray-300 text-sm leading-relaxed max-w-md mx-auto">
+                  メッセージの送信が完了いたしました。内容を確認次第、担当者より折り返しご連絡させていただきます。
+                </p>
+                <div className="pt-6">
+                  <button
+                    type="button"
+                    onClick={() => setStatus('idle')}
+                    className="bg-[#15181a] hover:bg-white/10 border border-white/20 text-white font-bold py-3.5 px-8 rounded-xl transition-all duration-300 text-sm uppercase tracking-wider cursor-pointer"
+                  >
+                    別のお問い合わせを送る
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {status === 'error' && (
+                  <div className="bg-red-950/50 border border-red-500/50 rounded-xl p-4 flex items-start gap-3 text-red-300 text-sm">
+                    <AlertCircle size={20} className="text-red-400 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-bold text-red-200 mb-1">送信エラー</p>
+                      <p className="mb-2">{errorMessage}</p>
+                      <p className="text-xs text-red-400">
+                        ※ お急ぎの場合は直接 <a href="mailto:fukawapg@gmail.com" className="underline hover:text-white">fukawapg@gmail.com</a> までメールにてご連絡ください。
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-2" htmlFor="name">
+                      お名前 / チーム名 <span className="text-[#ffd700]">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      disabled={status === 'loading'}
+                      className="w-full px-4 py-3.5 rounded-xl bg-[#15181a] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition font-sans text-sm disabled:opacity-50"
+                      placeholder="例: 深谷 太郎"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-2" htmlFor="email">
+                      メールアドレス <span className="text-[#ffd700]">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      disabled={status === 'loading'}
+                      className="w-full px-4 py-3.5 rounded-xl bg-[#15181a] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition font-sans text-sm disabled:opacity-50"
+                      placeholder="例: info@example.com"
+                      required
+                    />
+                  </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-2" htmlFor="email">
-                    メールアドレス <span className="text-[#ffd700]">*</span>
+                  <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-2" htmlFor="subject">
+                    ご用件 <span className="text-[#ffd700]">*</span>
                   </label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    value={formData.email}
+                  <select
+                    id="subject"
+                    value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3.5 rounded-xl bg-[#15181a] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition font-sans text-sm"
-                    placeholder="例: info@example.com"
-                    required
-                  />
+                    disabled={status === 'loading'}
+                    className="w-full px-4 py-3.5 rounded-xl bg-[#15181a] border border-white/10 text-white focus:outline-none focus:border-purple-500 transition font-sans text-sm disabled:opacity-50"
+                  >
+                    <option value="練習試合のお申し込み">練習試合のお申し込み</option>
+                    <option value="スポンサーに関するお問い合わせ">スポンサーに関するお問い合わせ</option>
+                    <option value="入部・見学について">入部・見学について</option>
+                    <option value="その他のお問い合わせ">その他のお問い合わせ</option>
+                  </select>
                 </div>
-              </div>
 
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-2" htmlFor="subject">
-                  ご用件 <span className="text-[#ffd700]">*</span>
-                </label>
-                <select 
-                  id="subject" 
-                  value={formData.subject}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3.5 rounded-xl bg-[#15181a] border border-white/10 text-white focus:outline-none focus:border-purple-500 transition font-sans text-sm"
-                >
-                  <option value="練習試合のお申し込み">練習試合のお申し込み</option>
-                  <option value="スポンサーに関するお問い合わせ">スポンサーに関するお問い合わせ</option>
-                  <option value="入部・見学について">入部・見学について</option>
-                  <option value="その他のお問い合わせ">その他のお問い合わせ</option>
-                </select>
-              </div>
+                <div>
+                  <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-2" htmlFor="message">
+                    お問い合わせ内容 <span className="text-[#ffd700]">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    rows={5}
+                    value={formData.message}
+                    onChange={handleChange}
+                    disabled={status === 'loading'}
+                    className="w-full px-4 py-3.5 rounded-xl bg-[#15181a] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition font-sans text-sm leading-relaxed disabled:opacity-50"
+                    placeholder="具体的なご希望の日程や、ご質問内容をこちらにご記入ください。"
+                    required
+                  ></textarea>
+                </div>
 
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-gray-300 mb-2" htmlFor="message">
-                  お問い合わせ内容 <span className="text-[#ffd700]">*</span>
-                </label>
-                <textarea 
-                  id="message" 
-                  rows={5} 
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3.5 rounded-xl bg-[#15181a] border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition font-sans text-sm leading-relaxed"
-                  placeholder="具体的なご希望の日程や、ご質問内容をこちらにご記入ください。"
-                  required
-                ></textarea>
-              </div>
-
-              <div className="pt-4">
-                <button 
-                  type="submit" 
-                  className="w-full bg-[#ffd700] hover:bg-white text-[#101415] font-black py-4 px-8 rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(255,215,0,0.25)] flex items-center justify-center space-x-3 uppercase tracking-wider text-base group cursor-pointer"
-                >
-                  <span>送信する（メールソフト起動）</span>
-                  <Send size={18} className="group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
-            </form>
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    disabled={status === 'loading'}
+                    className="w-full bg-[#ffd700] hover:bg-white text-[#101415] font-black py-4 px-8 rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(255,215,0,0.25)] flex items-center justify-center space-x-3 uppercase tracking-wider text-base group cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {status === 'loading' ? (
+                      <>
+                        <Loader2 size={20} className="animate-spin text-[#101415]" />
+                        <span>送信中...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>メッセージを送信する</span>
+                        <Send size={18} className="group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </div>
