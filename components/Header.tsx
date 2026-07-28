@@ -32,8 +32,12 @@ export default function Header() {
             onClick={closeMenu} 
             className="flex items-center gap-3 group"
           >
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-indigo-900 flex items-center justify-center border border-purple-400/30 shadow-[0_0_15px_rgba(168,85,247,0.3)] group-hover:scale-105 transition-transform duration-300">
-              <span className="font-extrabold text-white text-lg tracking-tighter">PG</span>
+            <div className="w-11 h-11 rounded-lg overflow-hidden bg-black/60 border border-white/20 shadow-[0_0_15px_rgba(168,85,247,0.4)] group-hover:scale-105 group-hover:border-purple-400 transition-all duration-300 flex items-center justify-center p-0.5">
+              <img 
+                src="/photo/emblem.jpg" 
+                alt="深谷PG エンブレム" 
+                className="w-full h-full object-contain" 
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-xl md:text-2xl font-black tracking-wider text-white uppercase group-hover:text-purple-300 transition-colors">

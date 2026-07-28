@@ -13,6 +13,11 @@ export const metadata: Metadata = {
     template: "%s | 深谷PG",
   },
   description: "埼玉県深谷市を拠点に活動する社会人サッカーチーム「深谷PG」の公式ホームページです。最新の試合結果や日程、チーム情報をお届けします。",
+  icons: {
+    icon: "/photo/emblem.jpg",
+    shortcut: "/photo/emblem.jpg",
+    apple: "/photo/emblem.jpg",
+  },
   openGraph: {
     title: "深谷PG | 埼玉県深谷市の社会人サッカーチーム",
     description: "埼玉県深谷市を拠点に活動する社会人サッカークラブ「深谷PG」のオフィシャルウェブサイト。",
@@ -59,7 +64,7 @@ export default function RootLayout({
               "alternateName": "Fukaya PG",
               "sport": "Soccer",
               "url": "https://fukayapg.com",
-              "logo": "https://fukayapg.com/photo/homeMainphoto.jpg",
+              "logo": "https://fukayapg.com/photo/emblem.jpg",
               "description": "埼玉県深谷市を拠点に活動する社会人サッカークラブチーム。",
               "location": {
                 "@type": "Place",
@@ -102,6 +107,9 @@ export default function RootLayout({
               <span className="font-bold text-sm tracking-wider uppercase">Official Instagram</span>
             </a>
 
+            <div className="w-14 h-14 mb-5 rounded-xl overflow-hidden border border-white/15 bg-black/50 p-1.5 shadow-[0_0_20px_rgba(168,85,247,0.25)] hover:scale-105 transition-transform duration-300">
+              <img src="/photo/emblem.jpg" alt="深谷PG エンブレム" className="w-full h-full object-contain" />
+            </div>
             <p className="mb-2 font-black text-white text-lg tracking-widest uppercase">深谷PG OFFICIAL WEBSITE</p>
             <p className="text-xs text-gray-500 font-mono tracking-wider">&copy; 2026 深谷PG. All Rights Reserved.</p>
           </div>

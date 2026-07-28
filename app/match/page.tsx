@@ -135,8 +135,8 @@ export default async function MatchPage() {
                   <div className="flex items-center justify-center space-x-4 sm:space-x-8 w-full lg:w-2/4 bg-[#15181a]/80 p-4 rounded-xl border border-white/5">
                     <div className="text-right flex-1 flex items-center justify-end gap-2 sm:gap-3">
                       <span className="font-extrabold text-base sm:text-xl text-white truncate">深谷PG</span>
-                      <div className="w-8 h-8 rounded-full bg-purple-900/50 border border-purple-500/30 flex items-center justify-center text-purple-300 flex-shrink-0 hidden sm:flex">
-                        <Shield size={16} />
+                      <div className="w-9 h-9 rounded-lg overflow-hidden bg-black/60 border border-purple-500/40 flex items-center justify-center p-0.5 flex-shrink-0 hidden sm:flex shadow-md">
+                        <img src="/photo/emblem.jpg" alt="深谷PG" className="w-full h-full object-contain" />
                       </div>
                     </div>
                     

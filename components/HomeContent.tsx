@@ -179,8 +179,8 @@ export default function HomeContent({ matches, sponsors }: HomeContentProps) {
                   {/* スコア表示 */}
                   <div className="flex items-center justify-between mb-6 my-2">
                     <div className="flex flex-col items-center gap-2 w-1/3 text-center">
-                      <div className="w-10 h-10 rounded-full bg-purple-900/40 border border-purple-500/30 flex items-center justify-center text-purple-300">
-                        <Shield size={20} />
+                      <div className="w-12 h-12 rounded-xl overflow-hidden bg-black/60 border border-purple-500/40 flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.3)] group-hover:scale-105 transition-transform p-1">
+                        <img src="/photo/emblem.jpg" alt="深谷PG" className="w-full h-full object-contain" />
                       </div>
                       <span className="font-bold text-white text-sm md:text-base tracking-tight truncate w-full">深谷PG</span>
                     </div>
@@ -230,6 +230,9 @@ export default function HomeContent({ matches, sponsors }: HomeContentProps) {
                   01 // CLUB PHILOSOPHY
                 </span>
               </div>
+              <div className="w-20 h-20 rounded-2xl overflow-hidden border border-white/15 bg-black/50 p-2 mb-6 shadow-xl">
+                <img src="/photo/emblem.jpg" alt="深谷PG エンブレム" className="w-full h-full object-contain" />
+              </div>
               <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase leading-tight mb-6">
                 WELCOME TO <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-[#ffd700]">深谷PG</span>
@@ -244,6 +247,9 @@ export default function HomeContent({ matches, sponsors }: HomeContentProps) {
           {/* 右側：メインコンテンツカード */}
           <div className="lg:col-span-7 bg-[#1d2022]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-14 flex flex-col justify-between relative overflow-hidden shadow-2xl group hover:border-purple-500/30 transition-all duration-500">
             <div className="absolute -right-20 -top-20 w-60 h-60 bg-[#ffd700]/10 rounded-full blur-[80px] pointer-events-none"></div>
+            <div className="absolute -right-12 -bottom-12 w-64 h-64 opacity-[0.07] pointer-events-none transform rotate-12 group-hover:scale-105 transition-transform duration-700">
+              <img src="/photo/emblem.jpg" alt="" className="w-full h-full object-contain filter grayscale" />
+            </div>
             
             <div>
               <div className="h-1 w-20 bg-gradient-to-r from-[#ffd700] to-purple-500 mb-8 rounded-full"></div>
